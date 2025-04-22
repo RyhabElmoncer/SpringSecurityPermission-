@@ -77,11 +77,5 @@ http://localhost:8080/swagger-ui/index.html
 
 ## 🙌 Auteur
 
-Développé par [ryhab elmoncer ].
-
----
-
-```
-
----
+Développé par ryhab elmoncer
 
