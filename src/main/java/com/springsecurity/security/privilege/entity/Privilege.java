@@ -1,9 +1,9 @@
 package com.springsecurity.security.privilege.entity;
 
+import com.springsecurity.security.privilege.enums.PrivilegeModule;
 import com.springsecurity.security.privilege.enums.PrivilegeType;
 import com.springsecurity.security.privilege.enums.SubModule;
 import com.springsecurity.security.user.entity.User;
-import com.springsecurity.security.privilege.enums.Module; // Ton enum personnalisé
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,12 +19,13 @@ import java.util.UUID;
 @Builder
 @Table(name = "privileges", uniqueConstraints = @UniqueConstraint(columnNames = {"module", "sub_module", "privilege_type"}))
 public class Privilege implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private Module module;
+    private PrivilegeModule module;
 
     @Enumerated(EnumType.STRING)
     private SubModule subModule;
@@ -32,12 +33,11 @@ public class Privilege implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private PrivilegeType privilegeType;
 
-    @ManyToMany(mappedBy = "privileges",  cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "privileges", cascade = CascadeType.PERSIST)
     private List<User> users;
 
     @Override
     public String getAuthority() {
-        // Return the privilege in the format MODULE:SUBMODULE:PRIVILEGE
         return module.name() + ":" + subModule.name() + ":" + privilegeType.name();
     }
 }

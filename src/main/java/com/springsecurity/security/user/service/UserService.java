@@ -146,8 +146,6 @@ public class UserService {
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .role(user.getRole().name())  // Utilisation de 'name()' pour obtenir la valeur du rôle sous forme de String
-                .enabled(user.isEnabled())
-                .createdDate(user.getCreatedDate())
                 .build();
     }
 

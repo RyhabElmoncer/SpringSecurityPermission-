@@ -14,10 +14,6 @@ public class UserDTO {
     private String lastname;
     private String email;
     private String password;
-    private boolean sendEmail;
-    private String phoneNumber;
     private String role;
-    private boolean enabled;
-    private LocalDateTime createdDate;
     private List<String> privilegeStrings;
 }

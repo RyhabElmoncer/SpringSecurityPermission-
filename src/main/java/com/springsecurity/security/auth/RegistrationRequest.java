@@ -27,10 +27,6 @@ public class RegistrationRequest {
     @NotBlank(message = "password is mandatory")
     @Size(min = 8, message = "should be 8 characters lon minimum")
     private String password;
-    @NotEmpty(message = "Language key is mandatory")
-    @NotBlank(message = "Language key is mandatory")
-    @Column(name = "lan_key", length = 20)
-    private String lanKey;
 
 
 }

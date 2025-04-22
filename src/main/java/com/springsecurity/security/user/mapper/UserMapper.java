@@ -62,8 +62,6 @@ public class UserMapper {
                 .email(user.getEmail())
 
                 .role(user.getRole().name())
-                .enabled(user.isEnabled())
-                .createdDate(user.getCreatedDate())
                 .privilegeStrings(privilegeStrings)
                 .build();
     }

@@ -1,7 +1,7 @@
 package com.springsecurity.security.privilege.mapper;
-import com.springsecurity.security.privilege.enums.Module;
 
 import com.springsecurity.security.privilege.entity.Privilege;
+import com.springsecurity.security.privilege.enums.PrivilegeModule;
 import com.springsecurity.security.privilege.enums.PrivilegeType;
 import com.springsecurity.security.privilege.enums.SubModule;
 import com.springsecurity.security.privilege.repository.PrivilegeRepository;
@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class PrivilegeMapper {
+
     private final PrivilegeRepository privilegeRepository;
 
     public PrivilegeMapper(PrivilegeRepository privilegeRepository) {
@@ -28,19 +30,18 @@ public class PrivilegeMapper {
                 .map(privilegeString -> {
                     String[] parts = privilegeString.split(":");
                     if (parts.length != 3) {
-                        throw new IllegalArgumentException("Invalid privilege format");
+                        throw new IllegalArgumentException("Invalid privilege format: " + privilegeString);
                     }
 
-                    Module module = Module.valueOf(parts[0]);
+                    PrivilegeModule module = PrivilegeModule.valueOf(parts[0]);
                     SubModule subModule = SubModule.valueOf(parts[1]);
                     PrivilegeType privilegeType = PrivilegeType.valueOf(parts[2]);
 
-                    // Validate that the subModule is valid for the given module
                     if (!module.isValidSubModule(subModule)) {
                         throw new IllegalArgumentException("Invalid submodule for module: " + privilegeString);
                     }
 
-                    return privilegeRepository.findByModuleAndSubModuleAndPrivilegeType(Module, subModule, privilegeType)
+                    return privilegeRepository.findByModuleAndSubModuleAndPrivilegeType(module, subModule, privilegeType)
                             .orElseThrow(() -> new RuntimeException("Privilege not found: " + privilegeString));
                 })
                 .collect(Collectors.toList());
@@ -48,6 +49,8 @@ public class PrivilegeMapper {
 
     // Convert a Privilege entity to a string representation
     public String toString(Privilege privilege) {
-        return privilege.getModule().name() + ":" + privilege.getSubModule().name() + ":" + privilege.getPrivilegeType().name();
+        return privilege.getModule().name() + ":" +
+                privilege.getSubModule().name() + ":" +
+                privilege.getPrivilegeType().name();
     }
 }

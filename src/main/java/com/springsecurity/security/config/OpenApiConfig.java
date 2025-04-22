@@ -13,12 +13,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name = "MapsIT",
-                        email = "aicha.bayar@maps-it.com"
+                        name = "dev",
+                        email = "ryhabelmoncerr@gmail.com"
 
                 ),
                 description = "OpenApi documentation for Spring Security",
-                title = "OpenApi specification - IMOZON",
+                title = "OpenApi specification - dev Security",
                 version = "2.0",
                 license = @License(
                         name = "Licence name",
@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 @Server(
                         description = "PROD ENV",
-                        url = "https://backoffice.imozon.ca/"
+                        url = ""
                 )
         },
         security = {
